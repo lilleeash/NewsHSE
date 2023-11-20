@@ -108,6 +108,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9A0762102AFFE49900C6E679 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				9A0762112AFFE4DF00C6E679 /* HTTPClient */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		9A0762112AFFE4DF00C6E679 /* HTTPClient */ = {
+			isa = PBXGroup;
+			children = (
+				9AD474D42B0B9A0500049B82 /* NetworkService.swift */,
+				9AC093D82B02E49F00ACCF30 /* APIMethods.swift */,
+				9AD474D22B0B923000049B82 /* APIEnviroment.swift */,
+				9AC093DA2B02E4C100ACCF30 /* Typealias.swift */,
+			);
+			path = HTTPClient;
+			sourceTree = "<group>";
+		};
 		9A92DA702AFF6AF300BF7C81 /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -385,6 +404,7 @@
 				9AD474DD2B0B9DC200049B82 /* NSLayoutConstraint.swift in Sources */,
 				9AD474E32B0BA00500049B82 /* NewsTableManager.swift in Sources */,
 				9A07620A2AFF9FD900C6E679 /* NewsBuilder.swift in Sources */,
+				9AC093DB2B02E4C100ACCF30 /* Typealias.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
