@@ -8,7 +8,7 @@
 import UIKit
 
 protocol NewsDisplayLogic: AnyObject {
-    func displayNews()
+    func displayNews(_ viewModel: NewsDataFlow.Presentation.ViewModel)
 }
 
 final class NewsViewController: UIViewController, NewsDisplayLogic {
@@ -35,10 +35,14 @@ final class NewsViewController: UIViewController, NewsDisplayLogic {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Task {
+            try await interactor.requestData()
+        }
     }
     
-    func displayNews() {
-        
+    func displayNews(_ viewModel: NewsDataFlow.Presentation.ViewModel) {
+        contentView.configure(with: viewModel)
     }
 }
 

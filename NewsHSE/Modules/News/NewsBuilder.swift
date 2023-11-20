@@ -9,8 +9,9 @@ import UIKit
 
 final class NewsBuilder: ModuleBuilder {
     func build() -> UIViewController {
+        let provider = NewsProvider()
         let presenter = NewsPresenter()
-        let interactor = NewsInteractor(presenter: presenter)
+        let interactor = NewsInteractor(presenter: presenter, provider: provider)
         let viewController = NewsViewController(interactor: interactor)
         
         presenter.viewController = viewController
