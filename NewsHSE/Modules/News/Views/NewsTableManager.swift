@@ -7,12 +7,17 @@
 
 import UIKit
 
+protocol NewsTableManagerDelegate {
+    func didSelectRow(_ beerModel: NewsDetailDataFlow.Presentation.ViewModel)
+}
+
 final class NewsTableManager: NSObject {
+    var delegate: NewsTableManagerDelegate?
     var tableData: NewsDataFlow.Presentation.ViewModel = []
 }
 
 // MARK: - UITableViewDataSource
-extension NewsTableManager: UITableViewDataSource {
+extension NewsTableManager: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableData.count
     }
@@ -31,5 +36,11 @@ extension NewsTableManager: UITableViewDataSource {
         cell.configure(with: newsViewModel)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let beerModel = tableData[indexPath.row]
+        delegate?.didSelectRow(beerModel)
     }
 }
