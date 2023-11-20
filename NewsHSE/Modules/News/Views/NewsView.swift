@@ -8,7 +8,7 @@
 import UIKit
 
 protocol NewsTableViewDelegate {
-    func didSelectRow(_ beerModel: NewsDetailDataFlow.Presentation.ViewModel)
+    func didSelectRow(_ newsModel: NewsDetailDataFlow.Presentation.ViewModel)
 }
 
 final class NewsView: UIView {
