@@ -33,6 +33,8 @@
 		9AD474DF2B0B9DCD00049B82 /* Array+Subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD474DE2B0B9DCD00049B82 /* Array+Subscript.swift */; };
 		9AD474E32B0BA00500049B82 /* NewsTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD474E22B0BA00500049B82 /* NewsTableManager.swift */; };
 		9AD474E82B0BA6E100049B82 /* NewsDetailDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD474E72B0BA6E100049B82 /* NewsDetailDataFlow.swift */; };
+		9AD474EC2B0BABCC00049B82 /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD474EB2B0BABCC00049B82 /* NewsDetailViewController.swift */; };
+		9AD474EE2B0BAC0A00049B82 /* NewsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD474ED2B0BAC0A00049B82 /* NewsDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +85,8 @@
 		9AD474DE2B0B9DCD00049B82 /* Array+Subscript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Subscript.swift"; sourceTree = "<group>"; };
 		9AD474E22B0BA00500049B82 /* NewsTableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableManager.swift; sourceTree = "<group>"; };
 		9AD474E72B0BA6E100049B82 /* NewsDetailDataFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailDataFlow.swift; sourceTree = "<group>"; };
+		9AD474EB2B0BABCC00049B82 /* NewsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
+		9AD474ED2B0BAC0A00049B82 /* NewsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,6 +266,8 @@
 			isa = PBXGroup;
 			children = (
 				9AD474E72B0BA6E100049B82 /* NewsDetailDataFlow.swift */,
+				9AD474EB2B0BABCC00049B82 /* NewsDetailViewController.swift */,
+				9AD474ED2B0BAC0A00049B82 /* NewsDetailView.swift */,
 			);
 			path = NewsDetail;
 			sourceTree = "<group>";
@@ -404,7 +410,9 @@
 				9AD474D52B0B9A0500049B82 /* NetworkService.swift in Sources */,
 				9A07620C2AFFA01200C6E679 /* ModuleBuilder.swift in Sources */,
 				9AAED11D2AFABBBE00CE141C /* SceneDelegate.swift in Sources */,
+				9AD474EC2B0BABCC00049B82 /* NewsDetailViewController.swift in Sources */,
 				9AC093D92B02E49F00ACCF30 /* APIMethods.swift in Sources */,
+				9AD474EE2B0BAC0A00049B82 /* NewsDetailView.swift in Sources */,
 				9AD474D92B0B9D2900049B82 /* NewsTableViewCell.swift in Sources */,
 				9AC093E82B040E7700ACCF30 /* NewsViewModel.swift in Sources */,
 				9A0762082AFF9FAC00C6E679 /* NewsView.swift in Sources */,

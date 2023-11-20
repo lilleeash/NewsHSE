@@ -48,7 +48,9 @@ final class NewsViewController: UIViewController, NewsDisplayLogic {
 }
 
 extension NewsViewController: NewsTableViewDelegate {
-    func didSelectRow(_ beerModel: NewsDetailDataFlow.Presentation.ViewModel) {
+    func didSelectRow(_ newsModel: NewsDetailDataFlow.Presentation.ViewModel) {
+        let vc = NewsDetailViewController(data: newsModel)
+        present(vc, animated: true)
     }
 }
 
