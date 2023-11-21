@@ -36,7 +36,8 @@ final class NewsViewController: UIViewController, NewsDisplayLogic {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationItem.title = "News"
+        navigationController?.navigationBar.prefersLargeTitles = true
         Task {
             try await interactor.requestData()
         }

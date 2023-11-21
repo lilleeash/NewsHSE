@@ -13,6 +13,10 @@ protocol NewsTableViewDelegate {
 
 final class NewsView: UIView {
     
+    private enum Constants {
+        static let padding = CGFloat(8)
+    }
+    
     private lazy var tableView: UITableView = {
         let table = UITableView()
         table.dataSource = tableManager
@@ -57,8 +61,8 @@ private extension NewsView {
     
     private func setUpConstraints() {
         NSLayoutConstraint.autoresizingMask([
-            tableView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),
-            tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            tableView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: Constants.padding),
+            tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -Constants.padding),
             tableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor)
         ])
