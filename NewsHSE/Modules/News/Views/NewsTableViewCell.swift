@@ -6,9 +6,35 @@
 //
 
 import UIKit
+import Kingfisher
 
 class NewsTableViewCell: UITableViewCell {
     static let identifier = "NewsTableViewCell"
+    
+    private enum Constants {
+        static let horizontalPadding = CGFloat(8)
+        static let verticalPadding = CGFloat(16)
+        static let imageSize = CGFloat(50)
+        static let spacing = CGFloat(8)
+        static let cornerRadius = CGFloat(10)
+    }
+    
+    private let newsImageView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = .systemGray6
+        view.contentMode = .scaleAspectFill
+        view.layer.cornerRadius = Constants.cornerRadius
+        view.clipsToBounds = true
+        return view
+    }()
+    
+    private let stack: UIStackView = {
+        let view = UIStackView()
+        view.spacing = Constants.spacing
+        view.axis = .vertical
+        view.alignment = .leading
+        return view
+    }()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -31,32 +57,37 @@ class NewsTableViewCell: UITableViewCell {
         super.init(coder: coder)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-    }
-    
-    private func setUpConstraints() {
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(descriptionLabel)
-        
-        NSLayoutConstraint.autoresizingMask([
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            titleLabel.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor, constant: -8)
-        ])
-        
-        NSLayoutConstraint.autoresizingMask([
-            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8)
-        ])
-    }
-    
     func configure(with item: NewsViewModel) {
         titleLabel.text = item.title
         descriptionLabel.text = item.description
+        
+        guard let urlToImage = item.urlToImage else { return }
+        newsImageView.kf.setImage(with: URL(string: urlToImage))
+    }
+}
+
+private extension NewsTableViewCell {
+    
+    private func setUpConstraints() {
+        stack.addArrangedSubview(titleLabel)
+        stack.addArrangedSubview(descriptionLabel)
+        contentView.addSubview(stack)
+        contentView.addSubview(newsImageView)
+        
+        NSLayoutConstraint.autoresizingMask([
+            newsImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.horizontalPadding),
+            newsImageView.trailingAnchor.constraint(equalTo: stack.leadingAnchor, constant: -Constants.horizontalPadding),
+            newsImageView.widthAnchor.constraint(equalToConstant: Constants.imageSize),
+            newsImageView.heightAnchor.constraint(equalToConstant: Constants.imageSize),
+            newsImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        ])
+        
+        NSLayoutConstraint.autoresizingMask([
+            stack.leadingAnchor.constraint(equalTo: newsImageView.trailingAnchor, constant: Constants.horizontalPadding),
+            stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.horizontalPadding),
+            stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.verticalPadding),
+            stack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.verticalPadding)
+        ])
     }
 }
 
