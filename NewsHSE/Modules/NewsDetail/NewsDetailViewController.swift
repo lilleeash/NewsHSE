@@ -8,20 +8,20 @@
 import UIKit
 
 protocol NewsDetailDisplayLogic: AnyObject {
-    func displayNewsDetail()
+    func displayNewsDetail(data: NewsDetailDataFlow.Presentation.ViewModel)
 }
 
 final class NewsDetailViewController: UIViewController, NewsDetailDisplayLogic {
     
-    let data: NewsDetailDataFlow.Presentation.ViewModel
-    
-    lazy var contentView: NewsDetailView = {
+    lazy var contentView: DisplaysNewsView = {
         let view = NewsDetailView()
         return view
     }()
     
-    init(data: NewsDetailDataFlow.Presentation.ViewModel) {
-        self.data = data
+    private let interactor: NewsDetailBussinessLogic
+    
+    init(interactor: NewsDetailBussinessLogic) {
+        self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -35,10 +35,9 @@ final class NewsDetailViewController: UIViewController, NewsDetailDisplayLogic {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        displayNewsDetail()
     }
     
-    func displayNewsDetail() {
+    func displayNewsDetail(data: NewsDetailDataFlow.Presentation.ViewModel) {
         contentView.configure(with: data)
     }
 }

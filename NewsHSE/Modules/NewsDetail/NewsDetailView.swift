@@ -8,16 +8,26 @@
 import UIKit
 import Kingfisher
 
-class NewsDetailView: UIView {
+protocol DisplaysNewsView: UIView {
+    func configure(with viewModel: NewsDetailDataFlow.Presentation.ViewModel)
+}
+
+final class NewsDetailView: UIView, DisplaysNewsView {
+    private enum Constants {
+        static let imageHeight = CGFloat(250)
+        static let padding = CGFloat(16)
+        static let descriptionTopPadding = CGFloat(4)
+        static let contentLabelTopPadding = CGFloat(32)
+    }
     
-    private lazy var titleLabel: UILabel = {
+    private var titleLabel: UILabel = {
         let view = UILabel()
         view.numberOfLines = 0
         view.font = .systemFont(ofSize: 22, weight: .semibold)
         return view
     }()
     
-    private lazy var descriptionLabel: UILabel = {
+    private var descriptionLabel: UILabel = {
         let view = UILabel()
         view.numberOfLines = 0
         view.font = .systemFont(ofSize: 15)
@@ -25,13 +35,13 @@ class NewsDetailView: UIView {
         return view
     }()
      
-    private lazy var contentLabel: UILabel = {
+    private var contentLabel: UILabel = {
         let view = UILabel()
         view.numberOfLines = 0
         return view
     }()
     
-    private lazy var imageView: UIImageView = {
+    private var imageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleToFill
         view.backgroundColor = .systemGray6
@@ -60,37 +70,61 @@ class NewsDetailView: UIView {
 
 private extension NewsDetailView {
     private func addSubviews() {
-        addSubview(imageView)
-        addSubview(titleLabel)
-        addSubview(descriptionLabel)
-        addSubview(contentLabel)
-        
-        NSLayoutConstraint.autoresizingMask([
-            imageView.leftAnchor.constraint(equalTo: leftAnchor),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageView.topAnchor.constraint(equalTo: topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -16),
-            imageView.heightAnchor.constraint(equalToConstant: 250)
+        [
+            titleLabel,
+            descriptionLabel,
+            contentLabel,
+            contentLabel,
+            imageView
+        ].forEach {
+            self.addSubview($0)
+            $0.autolayout()
+        }
+    }
+    
+    private func setUpConstraints() {
+        NSLayoutConstraint.activate([
+            imageView.leftAnchor
+                .constraint(equalTo: leftAnchor),
+            imageView.trailingAnchor
+                .constraint(equalTo: trailingAnchor),
+            imageView.topAnchor
+                .constraint(equalTo: topAnchor),
+            imageView.bottomAnchor
+                .constraint(equalTo: titleLabel.topAnchor, constant: -Constants.padding),
+            imageView.heightAnchor
+                .constraint(equalToConstant: Constants.imageHeight)
         ])
         
-        NSLayoutConstraint.autoresizingMask([
-            titleLabel.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            titleLabel.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor, constant: -4),
-            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16)
+        NSLayoutConstraint.activate([
+            titleLabel.leftAnchor
+                .constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: Constants.padding),
+            titleLabel.trailingAnchor
+                .constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -Constants.padding),
+            titleLabel.topAnchor
+                .constraint(equalTo: imageView.bottomAnchor, constant: Constants.padding),
+            titleLabel.bottomAnchor
+                .constraint(equalTo: descriptionLabel.topAnchor, constant: -Constants.descriptionTopPadding),
         ])
         
-        NSLayoutConstraint.autoresizingMask([
-            descriptionLabel.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 16),
-            descriptionLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
-            descriptionLabel.bottomAnchor.constraint(equalTo: contentLabel.topAnchor, constant: -32)
+        NSLayoutConstraint.activate([
+            descriptionLabel.leftAnchor
+                .constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: Constants.padding),
+            descriptionLabel.trailingAnchor
+                .constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -Constants.padding),
+            descriptionLabel.topAnchor
+                .constraint(equalTo: titleLabel.bottomAnchor, constant: Constants.descriptionTopPadding),
+            descriptionLabel.bottomAnchor
+                .constraint(equalTo: contentLabel.topAnchor, constant: -Constants.contentLabelTopPadding)
         ])
         
-        NSLayoutConstraint.autoresizingMask([
-            contentLabel.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 16),
-            contentLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            contentLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 32)
+        NSLayoutConstraint.activate([
+            contentLabel.leftAnchor
+                .constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: Constants.padding),
+            contentLabel.trailingAnchor
+                .constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -Constants.padding),
+            contentLabel.topAnchor
+                .constraint(equalTo: descriptionLabel.bottomAnchor, constant: Constants.contentLabelTopPadding)
         ])
     }
 }
