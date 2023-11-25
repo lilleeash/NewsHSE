@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CharactersViewController.swift
 //  NewsHSE
 //
 //  Created by Darya Zhitova on 07.11.2023.
@@ -7,21 +7,21 @@
 
 import UIKit
 
-protocol NewsDisplayLogic: AnyObject {
-    func displayNews(_ viewModel: NewsDataFlow.Presentation.ViewModel)
+protocol CharactersDisplayLogic: AnyObject {
+    func displayNews(_ viewModel: CharactersDataFlow.Presentation.ViewModel)
 }
 
-final class NewsViewController: UIViewController, NewsDisplayLogic {
+final class CharactersViewController: UIViewController, CharactersDisplayLogic {
     
-    lazy var contentView: NewsView = {
-        let view = NewsView()
+    lazy var contentView: CharactersView = {
+        let view = CharactersView()
         view.delegate = self
         return view
     }()
     
-    let interactor: NewsBuissenesLogic
+    let interactor: CharactersBuissenesLogic
     
-    init(interactor: NewsBuissenesLogic) {
+    init(interactor: CharactersBuissenesLogic) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
     }
@@ -43,14 +43,14 @@ final class NewsViewController: UIViewController, NewsDisplayLogic {
         }
     }
     
-    func displayNews(_ viewModel: NewsDataFlow.Presentation.ViewModel) {
+    func displayNews(_ viewModel: CharactersDataFlow.Presentation.ViewModel) {
         contentView.configure(with: viewModel)
     }
 }
 
-extension NewsViewController: NewsTableViewDelegate {
-    func didSelectRow(_ newsModel: NewsDetailDataFlow.Presentation.ViewModel) {
-        let vc = NewsDetailBuilder().build()
+extension CharactersViewController: CharactersViewTableViewDelegate {
+    func didSelectRow(_ newsModel: CharacterDetailDataFlow.Presentation.ViewModel) {
+        let vc = CharacterDetailBuilder().build()
         present(vc, animated: true)
     }
 }

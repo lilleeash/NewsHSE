@@ -1,5 +1,5 @@
 //
-//  NewsDetailView.swift
+//  CharacterDetailView.swift
 //  NewsHSE
 //
 //  Created by Darya Zhitova on 20.11.2023.
@@ -8,11 +8,11 @@
 import UIKit
 import Kingfisher
 
-protocol DisplaysNewsView: UIView {
-    func configure(with viewModel: NewsDetailDataFlow.Presentation.ViewModel)
+protocol DisplaysCharacterView: UIView {
+    func configure(with viewModel: CharacterDetailDataFlow.Presentation.ViewModel)
 }
 
-final class NewsDetailView: UIView, DisplaysNewsView {
+final class CharacterDetailView: UIView, DisplaysCharacterView {
     private enum Constants {
         static let imageHeight = CGFloat(250)
         static let padding = CGFloat(16)
@@ -58,14 +58,14 @@ final class NewsDetailView: UIView, DisplaysNewsView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with viewModel: NewsDetailDataFlow.Presentation.ViewModel) {
+    func configure(with viewModel: CharacterDetailDataFlow.Presentation.ViewModel) {
         titleLabel.text = viewModel.name
         descriptionLabel.text = viewModel.type
         imageView.kf.setImage(with: URL(string: viewModel.image))
     }
 }
 
-private extension NewsDetailView {
+private extension CharacterDetailView {
     private func addSubviews() {
         [
             titleLabel,

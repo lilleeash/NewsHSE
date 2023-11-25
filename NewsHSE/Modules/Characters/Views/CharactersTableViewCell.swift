@@ -1,5 +1,5 @@
 //
-//  NewsTableViewCell.swift
+//  CharactersTableViewCell.swift
 //  NewsHSE
 //
 //  Created by Darya Zhitova on 20.11.2023.
@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class NewsTableViewCell: UITableViewCell {
+class CharactersTableViewCell: UITableViewCell {
     static let identifier = "NewsTableViewCell"
     
     private enum Constants {
@@ -57,14 +57,14 @@ class NewsTableViewCell: UITableViewCell {
         super.init(coder: coder)
     }
     
-    func configure(with item: NewsViewModel) {
+    func configure(with item: CharactersViewModel) {
         titleLabel.text = item.name
         descriptionLabel.text = item.type
         newsImageView.kf.setImage(with: URL(string: item.image))
     }
 }
 
-private extension NewsTableViewCell {
+private extension CharactersTableViewCell {
     
     private func setUpConstraints() {
         stack.addArrangedSubview(titleLabel)
