@@ -13,9 +13,9 @@ protocol NewsBuissenesLogic {
 final class NewsInteractor: NewsBuissenesLogic {
     
     private let presenter: NewsPresentationLogic
-    private let provider: any ProvidesNewsInfo
+    private let provider: ProvidesNewsInfo
     
-    init(presenter: NewsPresentationLogic, provider: any ProvidesNewsInfo) {
+    init(presenter: NewsPresentationLogic, provider: ProvidesNewsInfo) {
         self.presenter = presenter
         self.provider = provider
     }
