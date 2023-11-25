@@ -13,12 +13,17 @@ protocol ProvidesNewsInfo {
 
 final class NewsProvider: ProvidesNewsInfo {
     private let service: NetworkServiceProtocol
+    private let request: Requestable
     
-    init(service: NetworkServiceProtocol = NetworkService()) {
+    init(
+        service: NetworkServiceProtocol = NetworkService(),
+        request: Requestable = NewsRequest()
+    ) {
         self.service = service
+        self.request = request
     }
     
     func requestNews() async throws -> NewsModel {
-        try await service.fetchNews()
+        try await service.fetchNews(request)
     }
 }
