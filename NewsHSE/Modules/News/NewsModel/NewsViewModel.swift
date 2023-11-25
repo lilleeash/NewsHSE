@@ -8,12 +8,8 @@
 import Foundation
 
 struct NewsViewModel: Decodable {
-    let author: String?
-    let title: String
-    let description: String
-    let url: String
-    let urlToImage: String?
-    let publishedAt: String
-    let content: String
-    let sourceName: String
+    let id: Int
+    let name: String
+    let type: String
+    let image: String
 }

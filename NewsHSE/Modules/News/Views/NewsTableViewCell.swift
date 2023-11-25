@@ -58,11 +58,9 @@ class NewsTableViewCell: UITableViewCell {
     }
     
     func configure(with item: NewsViewModel) {
-        titleLabel.text = item.title
-        descriptionLabel.text = item.description
-        
-        guard let urlToImage = item.urlToImage else { return }
-        newsImageView.kf.setImage(with: URL(string: urlToImage))
+        titleLabel.text = item.name
+        descriptionLabel.text = item.type
+        newsImageView.kf.setImage(with: URL(string: item.image))
     }
 }
 
