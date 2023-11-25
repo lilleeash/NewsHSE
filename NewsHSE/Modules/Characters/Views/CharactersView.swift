@@ -1,5 +1,5 @@
 //
-//  NewsView.swift
+//  CharactersView.swift
 //  NewsHSE
 //
 //  Created by Darya Zhitova on 11.11.2023.
@@ -7,11 +7,11 @@
 
 import UIKit
 
-protocol NewsTableViewDelegate {
-    func didSelectRow(_ newsModel: NewsDetailDataFlow.Presentation.ViewModel)
+protocol CharactersViewTableViewDelegate {
+    func didSelectRow(_ newsModel: CharacterDetailDataFlow.Presentation.ViewModel)
 }
 
-final class NewsView: UIView {
+final class CharactersView: UIView {
     
     private enum Constants {
         static let padding = CGFloat(8)
@@ -21,12 +21,12 @@ final class NewsView: UIView {
         let table = UITableView()
         table.dataSource = tableManager
         table.delegate = tableManager
-        table.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
+        table.register(CharactersTableViewCell.self, forCellReuseIdentifier: CharactersTableViewCell.identifier)
         return table
     }()
     
-    private lazy var tableManager = NewsTableManager()
-    var delegate: NewsTableViewDelegate?
+    private lazy var tableManager = CharactersTableManager()
+    var delegate: CharactersViewTableViewDelegate?
     
     init() {
         super.init(frame: .zero)
@@ -40,19 +40,19 @@ final class NewsView: UIView {
         fatalError("BeersUIView couldn`t init")
     }
     
-    func configure(with viewModel: NewsDataFlow.Presentation.ViewModel) {
+    func configure(with viewModel: CharactersDataFlow.Presentation.ViewModel) {
         tableManager.tableData = viewModel
         tableView.reloadData()
     }
 }
 
-extension NewsView: NewsTableManagerDelegate {
-    func didSelectRow(_ beerModel: NewsDetailDataFlow.Presentation.ViewModel) {
+extension CharactersView: CharactersTableManagerDelegate {
+    func didSelectRow(_ beerModel: CharacterDetailDataFlow.Presentation.ViewModel) {
         delegate?.didSelectRow(beerModel)
     }
 }
 
-private extension NewsView {
+private extension CharactersView {
     private func addSubviews() {
         [tableView].forEach {
             self.addSubview($0)

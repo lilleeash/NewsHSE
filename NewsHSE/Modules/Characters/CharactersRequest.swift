@@ -1,5 +1,5 @@
 //
-//  NewsRequest.swift
+//  CharactersRequest.swift
 //  NewsHSE
 //
 //  Created by Darya Zhitova on 24.11.2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NewsRequest: Requestable {
-    typealias Responce = NewsModel
+struct CharactersRequest: Requestable {
+    typealias Responce = CharactersModel
     var path: String = "/character"
 }

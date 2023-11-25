@@ -1,5 +1,5 @@
 //
-//  NewsViewModel.swift
+//  CharactersViewModel.swift
 //  NewsHSE
 //
 //  Created by Darya Zhitova on 14.11.2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NewsViewModel: Decodable {
+struct CharactersViewModel: Decodable {
     let id: Int
     let name: String
     let type: String

@@ -1,5 +1,5 @@
 //
-//  NewsProvider.swift
+//  CharactersProvider.swift
 //  NewsHSE
 //
 //  Created by Darya Zhitova on 14.11.2023.
@@ -7,23 +7,23 @@
 
 import Foundation
 
-protocol ProvidesNewsInfo {
-    func requestNews() async throws -> NewsModel
+protocol ProvidesCharactersInfo {
+    func requestNews() async throws -> CharactersModel
 }
 
-final class NewsProvider: ProvidesNewsInfo {
+final class CharactersProvider: ProvidesCharactersInfo {
     private let service: NetworkServiceProtocol
     private let request: Requestable
     
     init(
         service: NetworkServiceProtocol = NetworkService(),
-        request: Requestable = NewsRequest()
+        request: Requestable = CharactersRequest()
     ) {
         self.service = service
         self.request = request
     }
     
-    func requestNews() async throws -> NewsModel {
+    func requestNews() async throws -> CharactersModel {
         try await service.fetchNews(request)
     }
 }

@@ -1,21 +1,21 @@
 //
-//  NewsInteractor.swift
+//  CharactersInteractor.swift
 //  NewsHSE
 //
 //  Created by Darya Zhitova on 11.11.2023.
 //
 import Foundation
 
-protocol NewsBuissenesLogic {
+protocol CharactersBuissenesLogic {
     func requestData() async throws
 }
 
-final class NewsInteractor: NewsBuissenesLogic {
+final class CharactersInteractor: CharactersBuissenesLogic {
     
-    private let presenter: NewsPresentationLogic
-    private let provider: ProvidesNewsInfo
+    private let presenter: CharactersPresentationLogic
+    private let provider: ProvidesCharactersInfo
     
-    init(presenter: NewsPresentationLogic, provider: ProvidesNewsInfo) {
+    init(presenter: CharactersPresentationLogic, provider: ProvidesCharactersInfo) {
         self.presenter = presenter
         self.provider = provider
     }
