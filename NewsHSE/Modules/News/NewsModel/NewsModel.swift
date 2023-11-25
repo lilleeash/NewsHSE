@@ -7,25 +7,35 @@
 
 import Foundation
 
+// MARK: - Product
 struct NewsModel: Decodable {
-    let status: String
-    let totalResults: Int
-    var articles: [ArticleModel]
+    let info: Info
+    let results: [Character]
 }
 
-struct ArticleModel: Decodable {
-    let source: SourceModel
-    let author: String?
-    let title: String
-    let description: String
-    let url: String
-    let urlToImage: String?
-    let publishedAt: String
-    let content: String
+// MARK: - Info
+struct Info: Decodable {
+    let count, pages: Int
+    let next: String
+    let prev: String?
 }
 
-struct SourceModel: Decodable {
-    let id: String?
+struct Character: Decodable {
+    let id: Int
     let name: String
+    let status: String
+    let species: String
+    let type: String
+    let gender: String
+    let origin: Location
+    let location: Location
+    let image: String
+    let episode: [String]
+    let url: String
+    let created: String
 }
 
+struct Location: Decodable {
+    let name: String
+    let url: String
+}

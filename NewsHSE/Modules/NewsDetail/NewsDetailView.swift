@@ -59,12 +59,9 @@ final class NewsDetailView: UIView, DisplaysNewsView {
     }
     
     func configure(with viewModel: NewsDetailDataFlow.Presentation.ViewModel) {
-        titleLabel.text = viewModel.title
-        descriptionLabel.text = viewModel.description
-        contentLabel.text = viewModel.content
-        
-        guard let urlToImage = viewModel.urlToImage else { return }
-        imageView.kf.setImage(with: URL(string: urlToImage))
+        titleLabel.text = viewModel.name
+        descriptionLabel.text = viewModel.type
+        imageView.kf.setImage(with: URL(string: viewModel.image))
     }
 }
 
