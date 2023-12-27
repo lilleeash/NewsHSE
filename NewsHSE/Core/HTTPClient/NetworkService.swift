@@ -8,21 +8,22 @@
 import Foundation
 
 protocol NetworkServiceProtocol {
-    func fetchNews() async throws -> NewsModel
+    func fetchNews<Responce: Decodable>(_ request: Requestable) async throws -> Responce
 }
 
 final class NetworkService: NetworkServiceProtocol {
-    
     private let session: URLSession
     private let decoder: JSONDecoder
+    private let encoder: JSONEncoder
     
-    init(session: URLSession = URLSession.shared, decoder: JSONDecoder = JSONDecoder()) {
-        self.decoder = decoder
-        self.session = session
+    init() {
+        self.decoder = JSONDecoder()
+        self.encoder = JSONEncoder()
+        self.session = URLSession.shared
     }
     
-    func fetchNews() async throws -> NewsModel {
-        guard let request = buildRequest(path: "/v2/everything?domains=techcrunch.com,thenextweb.com&apiKey=371307829f17416d9c883ff9c37fbdaa") else {
+    func fetchNews<Responce: Decodable>(_ request: Requestable) async throws -> Responce {
+        guard let request = request.buildRequest() else {
             throw URLError(.badURL)
         }
         
@@ -33,16 +34,7 @@ final class NetworkService: NetworkServiceProtocol {
             throw URLError(URLError.Code(rawValue: httpResponse.statusCode))
         }
         
-        let fetchedData = try decoder.decode(NewsModel.self, from: data)
+        let fetchedData = try decoder.decode(Responce.self, from: data)
         return fetchedData
-    }
-}
-
-private extension NetworkService {
-    private func buildRequest(path: String, method: APIMethod = .get) -> URLRequest? {
-        guard let finalURL = URL(string: APIEnviroment.baseURL.rawValue + path) else { return nil }
-        var request = URLRequest(url: finalURL)
-        request.httpMethod = method.rawValue
-        return request
     }
 }

@@ -1,5 +1,5 @@
 //
-//  NewsTableManager.swift
+//  CharactersTableManager.swift
 //  NewsHSE
 //
 //  Created by Darya Zhitova on 20.11.2023.
@@ -7,17 +7,17 @@
 
 import UIKit
 
-protocol NewsTableManagerDelegate {
-    func didSelectRow(_ beerModel: NewsDetailDataFlow.Presentation.ViewModel)
+protocol CharactersTableManagerDelegate {
+    func didSelectRow(_ beerModel: CharacterDetailDataFlow.Presentation.ViewModel)
 }
 
-final class NewsTableManager: NSObject {
-    var delegate: NewsTableManagerDelegate?
-    var tableData: NewsDataFlow.Presentation.ViewModel = []
+final class CharactersTableManager: NSObject {
+    var delegate: CharactersTableManagerDelegate?
+    var tableData: CharactersDataFlow.Presentation.ViewModel = []
 }
 
 // MARK: - UITableViewDataSource
-extension NewsTableManager: UITableViewDataSource, UITableViewDelegate {
+extension CharactersTableManager: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableData.count
     }
@@ -26,9 +26,9 @@ extension NewsTableManager: UITableViewDataSource, UITableViewDelegate {
         guard
             let newsViewModel = tableData[safe: indexPath.row],
             let cell = tableView.dequeueReusableCell(
-                withIdentifier: NewsTableViewCell.identifier,
+                withIdentifier: CharactersTableViewCell.identifier,
                 for: indexPath
-            ) as? NewsTableViewCell
+            ) as? CharactersTableViewCell
         else {
             return UITableViewCell()
         }

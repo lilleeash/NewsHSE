@@ -8,5 +8,8 @@
 import UIKit
 
 protocol ModuleBuilder {
-    func build() -> UIViewController
+    associatedtype Context
+    associatedtype ViewController
+    
+    func build(with context: Context) -> ViewController
 }
