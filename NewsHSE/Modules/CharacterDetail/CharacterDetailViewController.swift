@@ -11,7 +11,7 @@ protocol CharacterDetailDisplayLogic: AnyObject {
     func displayNewsDetail(data: CharacterDetailDataFlow.Presentation.ViewModel)
 }
 
-final class CharacterDetailViewController: UIViewController, CharacterDetailDisplayLogic {
+final class CharacterDetailViewController: UIViewController {
     
     lazy var contentView: DisplaysCharacterView = {
         let view = CharacterDetailView()
@@ -35,8 +35,11 @@ final class CharacterDetailViewController: UIViewController, CharacterDetailDisp
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        interactor.requestData()
     }
-    
+}
+
+extension CharacterDetailViewController: CharacterDetailDisplayLogic {
     func displayNewsDetail(data: CharacterDetailDataFlow.Presentation.ViewModel) {
         contentView.configure(with: data)
     }

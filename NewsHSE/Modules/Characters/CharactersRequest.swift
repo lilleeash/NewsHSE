@@ -7,7 +7,17 @@
 
 import Foundation
 
-struct CharactersRequest: Requestable {
-    typealias Responce = CharactersModel
+enum CharactersRequest: Requestable {
+    case getCharacters
+    
+    var endPoint: EndPointable {
+        switch self {
+        case .getCharacters:
+            return CharactersEndPoint()
+        }
+    }
+}
+
+struct CharactersEndPoint: EndPointable {
     var path: String = "/character"
 }

@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class CharactersTableViewCell: UITableViewCell {
+final class CharactersTableViewCell: UITableViewCell {
     static let identifier = "NewsTableViewCell"
     
     private enum Constants {
@@ -50,6 +50,7 @@ class CharactersTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        addSubviews()
         setUpConstraints()
     }
     
@@ -57,7 +58,7 @@ class CharactersTableViewCell: UITableViewCell {
         super.init(coder: coder)
     }
     
-    func configure(with item: CharactersViewModel) {
+    func configure(with item: CharacterViewModel) {
         titleLabel.text = item.name
         descriptionLabel.text = item.type
         newsImageView.kf.setImage(with: URL(string: item.image))
@@ -66,25 +67,42 @@ class CharactersTableViewCell: UITableViewCell {
 
 private extension CharactersTableViewCell {
     
-    private func setUpConstraints() {
-        stack.addArrangedSubview(titleLabel)
-        stack.addArrangedSubview(descriptionLabel)
-        contentView.addSubview(stack)
-        contentView.addSubview(newsImageView)
+    private func addSubviews() {
+        [stack, newsImageView].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            addSubview($0)
+        }
         
-        NSLayoutConstraint.autoresizingMask([
-            newsImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.horizontalPadding),
-            newsImageView.trailingAnchor.constraint(equalTo: stack.leadingAnchor, constant: -Constants.horizontalPadding),
-            newsImageView.widthAnchor.constraint(equalToConstant: Constants.imageSize),
-            newsImageView.heightAnchor.constraint(equalToConstant: Constants.imageSize),
-            newsImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        [titleLabel, descriptionLabel].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            stack.addArrangedSubview($0)
+        }
+        
+    }
+    
+    private func setUpConstraints() {
+        NSLayoutConstraint.activate([
+            newsImageView.leadingAnchor
+                .constraint(equalTo: contentView.leadingAnchor, constant: Constants.horizontalPadding),
+            newsImageView.trailingAnchor
+                .constraint(equalTo: stack.leadingAnchor, constant: -Constants.horizontalPadding),
+            newsImageView.widthAnchor
+                .constraint(equalToConstant: Constants.imageSize),
+            newsImageView.heightAnchor
+                .constraint(equalToConstant: Constants.imageSize),
+            newsImageView.centerYAnchor
+                .constraint(equalTo: contentView.centerYAnchor)
         ])
         
-        NSLayoutConstraint.autoresizingMask([
-            stack.leadingAnchor.constraint(equalTo: newsImageView.trailingAnchor, constant: Constants.horizontalPadding),
-            stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.horizontalPadding),
-            stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.verticalPadding),
-            stack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.verticalPadding)
+        NSLayoutConstraint.activate([
+            stack.leadingAnchor
+                .constraint(equalTo: newsImageView.trailingAnchor, constant: Constants.horizontalPadding),
+            stack.trailingAnchor
+                .constraint(equalTo: contentView.trailingAnchor, constant: -Constants.horizontalPadding),
+            stack.bottomAnchor
+                .constraint(equalTo: contentView.bottomAnchor, constant: -Constants.verticalPadding),
+            stack.topAnchor
+                .constraint(equalTo: contentView.topAnchor, constant: Constants.verticalPadding)
         ])
     }
 }
