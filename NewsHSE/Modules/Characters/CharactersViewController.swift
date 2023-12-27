@@ -13,13 +13,13 @@ protocol CharactersDisplayLogic: AnyObject {
 
 final class CharactersViewController: UIViewController, CharactersDisplayLogic {
     
-    lazy var contentView: CharactersView = {
+    lazy var contentView: DisplaysCharactersView = {
         let view = CharactersView()
         view.delegate = self
         return view
     }()
     
-    let interactor: CharactersBuissenesLogic
+    private let interactor: CharactersBuissenesLogic
     
     init(interactor: CharactersBuissenesLogic) {
         self.interactor = interactor
@@ -38,9 +38,7 @@ final class CharactersViewController: UIViewController, CharactersDisplayLogic {
         super.viewDidLoad()
         navigationItem.title = "News"
         navigationController?.navigationBar.prefersLargeTitles = true
-        Task {
-            try await interactor.requestData()
-        }
+        interactor.requestData()
     }
     
     func displayNews(_ viewModel: CharactersDataFlow.Presentation.ViewModel) {
@@ -48,9 +46,10 @@ final class CharactersViewController: UIViewController, CharactersDisplayLogic {
     }
 }
 
-extension CharactersViewController: CharactersViewTableViewDelegate {
+// MARK: - CharactersViewDelegate
+extension CharactersViewController: CharactersViewDelegate {
     func didSelectRow(_ newsModel: CharacterDetailDataFlow.Presentation.ViewModel) {
-        let vc = CharacterDetailBuilder().build()
+        let vc = CharacterDetailBuilder().build(with: newsModel.id)
         present(vc, animated: true)
     }
 }

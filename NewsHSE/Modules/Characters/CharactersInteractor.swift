@@ -7,7 +7,7 @@
 import Foundation
 
 protocol CharactersBuissenesLogic {
-    func requestData() async throws
+    func requestData()
 }
 
 final class CharactersInteractor: CharactersBuissenesLogic {
@@ -20,14 +20,17 @@ final class CharactersInteractor: CharactersBuissenesLogic {
         self.provider = provider
     }
     
-    func requestData() async throws {
-        do {
-            let fetchedNews = try await provider.requestNews()
-            DispatchQueue.main.async {
-                self.presenter.presentData(data: fetchedNews)
+    func requestData() {
+        Task {
+            do {
+                let fetchedNews = try await provider.requestNews()
+                
+                DispatchQueue.main.async {
+                    self.presenter.presentData(fetchedNews)
+                }
+            } catch {
+                print(error.localizedDescription)
             }
-        } catch {
-            print(error.localizedDescription)
         }
     }
 }

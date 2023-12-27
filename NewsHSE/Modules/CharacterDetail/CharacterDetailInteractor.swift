@@ -13,10 +13,23 @@ protocol CharacterDetailBussinessLogic {
 
 final class CharacterDetailInteractor: CharacterDetailBussinessLogic {
     private let presenter: CharacterDetailPresentationLogic
+    private let provider: ProvidesCharacterDetailInfo
     
-    init(presenter: CharacterDetailPresentationLogic) {
+    init(presenter: CharacterDetailPresentationLogic, provider: ProvidesCharacterDetailInfo) {
         self.presenter = presenter
+        self.provider = provider
     }
     
-    func requestData() {}
+    func requestData() {
+        Task {
+            do {
+                let fetchCharacter = try await provider.requestCharacter()
+                DispatchQueue.main.async {
+                    self.presenter.presentData(data: fetchCharacter)
+                }
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
 }

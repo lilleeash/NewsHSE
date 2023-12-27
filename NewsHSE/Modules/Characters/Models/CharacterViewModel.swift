@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CharactersViewModel: Decodable {
+struct CharacterViewModel: Decodable, Equatable {
     let id: Int
     let name: String
     let type: String

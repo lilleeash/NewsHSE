@@ -13,17 +13,12 @@ protocol ProvidesCharactersInfo {
 
 final class CharactersProvider: ProvidesCharactersInfo {
     private let service: NetworkServiceProtocol
-    private let request: Requestable
     
-    init(
-        service: NetworkServiceProtocol = NetworkService(),
-        request: Requestable = CharactersRequest()
-    ) {
+    init(service: NetworkServiceProtocol = NetworkService()) {
         self.service = service
-        self.request = request
     }
     
     func requestNews() async throws -> CharactersModel {
-        try await service.fetchNews(request)
+        try await service.fetchNews(CharactersRequest.getCharacters)
     }
 }

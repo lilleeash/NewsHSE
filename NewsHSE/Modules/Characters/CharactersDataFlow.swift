@@ -8,6 +8,11 @@
 enum CharactersDataFlow {
     enum Presentation {
         typealias Responce = CharactersModel
-        typealias ViewModel = [CharactersViewModel]
+        typealias ViewModel = [CharacterViewModel]
+    }
+    
+    enum ErrorType: Error {
+        case noInternet
+        case other
     }
 }

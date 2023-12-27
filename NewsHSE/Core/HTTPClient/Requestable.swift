@@ -8,10 +8,9 @@
 import Foundation
 
 protocol Requestable {
-    var path: String { get }
+    var endPoint: EndPointable { get }
     var method: APIMethod { get }
     var body: Encodable? { get }
-    var queryParams: QueryParams? { get }
     var headers: HTTPHeader? { get }
 }
 
@@ -19,5 +18,20 @@ extension Requestable {
     var method: APIMethod { .get }
     var body: Encodable? { nil }
     var headers: HTTPHeader? { nil }
-    var queryParams: QueryParams? { nil }
+    var encoder: JSONEncoder { JSONEncoder() }
+    
+    func buildRequest() -> URLRequest? {
+        guard let url = endPoint.getURL() else { return nil }
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = method.rawValue
+        urlRequest.httpBody = add(body: body)
+        urlRequest.allHTTPHeaderFields = headers
+        return urlRequest
+    }
+
+    private func add(body: Encodable?) -> Data? {
+        guard let body else { return nil }
+        guard let httpBody = try? encoder.encode(body) else { return nil }
+        return httpBody
+    }
 }

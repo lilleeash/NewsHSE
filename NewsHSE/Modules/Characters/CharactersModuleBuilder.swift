@@ -8,7 +8,7 @@
 import UIKit
 
 final class CharactersModuleBuilder: ModuleBuilder {
-    func build() -> UIViewController {
+    func build(with _: Void) -> CharactersViewController {
         let provider = CharactersProvider()
         let presenter = CharactersPresenter()
         let interactor = CharactersInteractor(presenter: presenter, provider: provider)

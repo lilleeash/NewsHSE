@@ -9,6 +9,7 @@ import Foundation
 
 enum CharacterDetailDataFlow {
     enum Presentation {
-        typealias ViewModel = CharactersViewModel
+        typealias ViewModel = CharacterViewModel
+        typealias Responce = CharacterModel
     }
 }

@@ -12,9 +12,9 @@ protocol DisplaysCharacterView: UIView {
     func configure(with viewModel: CharacterDetailDataFlow.Presentation.ViewModel)
 }
 
-final class CharacterDetailView: UIView, DisplaysCharacterView {
+final class CharacterDetailView: UIView {
     private enum Constants {
-        static let imageHeight = CGFloat(250)
+        static let imageSize = CGFloat(250)
         static let padding = CGFloat(16)
         static let descriptionTopPadding = CGFloat(4)
         static let contentLabelTopPadding = CGFloat(32)
@@ -34,17 +34,11 @@ final class CharacterDetailView: UIView, DisplaysCharacterView {
         view.textColor = .gray
         return view
     }()
-     
-    private var contentLabel: UILabel = {
-        let view = UILabel()
-        view.numberOfLines = 0
-        return view
-    }()
     
     private var imageView: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleToFill
-        view.backgroundColor = .systemGray6
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 20
         return view
     }()
     
@@ -52,12 +46,16 @@ final class CharacterDetailView: UIView, DisplaysCharacterView {
         super.init(frame: .zero)
         backgroundColor = .systemBackground
         addSubviews()
+        setUpConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+}
+
+// MARK: - DisplaysCharacterView
+extension CharacterDetailView: DisplaysCharacterView {
     func configure(with viewModel: CharacterDetailDataFlow.Presentation.ViewModel) {
         titleLabel.text = viewModel.name
         descriptionLabel.text = viewModel.type
@@ -65,32 +63,29 @@ final class CharacterDetailView: UIView, DisplaysCharacterView {
     }
 }
 
+// MARK: - private extension
 private extension CharacterDetailView {
     private func addSubviews() {
         [
             titleLabel,
             descriptionLabel,
-            contentLabel,
-            contentLabel,
             imageView
         ].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview($0)
-            $0.autolayout()
         }
     }
     
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
-            imageView.leftAnchor
-                .constraint(equalTo: leftAnchor),
-            imageView.trailingAnchor
-                .constraint(equalTo: trailingAnchor),
-            imageView.topAnchor
-                .constraint(equalTo: topAnchor),
-            imageView.bottomAnchor
-                .constraint(equalTo: titleLabel.topAnchor, constant: -Constants.padding),
             imageView.heightAnchor
-                .constraint(equalToConstant: Constants.imageHeight)
+                .constraint(equalToConstant: Constants.imageSize),
+            imageView.widthAnchor
+                .constraint(equalToConstant: Constants.imageSize),
+            imageView.centerXAnchor
+                .constraint(equalTo: centerXAnchor),
+            imageView.topAnchor
+                .constraint(equalTo: topAnchor, constant: Constants.padding),
         ])
         
         NSLayoutConstraint.activate([
@@ -110,18 +105,7 @@ private extension CharacterDetailView {
             descriptionLabel.trailingAnchor
                 .constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -Constants.padding),
             descriptionLabel.topAnchor
-                .constraint(equalTo: titleLabel.bottomAnchor, constant: Constants.descriptionTopPadding),
-            descriptionLabel.bottomAnchor
-                .constraint(equalTo: contentLabel.topAnchor, constant: -Constants.contentLabelTopPadding)
-        ])
-        
-        NSLayoutConstraint.activate([
-            contentLabel.leftAnchor
-                .constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: Constants.padding),
-            contentLabel.trailingAnchor
-                .constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -Constants.padding),
-            contentLabel.topAnchor
-                .constraint(equalTo: descriptionLabel.bottomAnchor, constant: Constants.contentLabelTopPadding)
+                .constraint(equalTo: titleLabel.bottomAnchor, constant: Constants.descriptionTopPadding)
         ])
     }
 }
